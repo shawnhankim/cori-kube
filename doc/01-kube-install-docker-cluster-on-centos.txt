@@ -1,0 +1,80 @@
+
+How to Install a Kubernetes Docker Cluster on CentOS 
+====================================================
+
+- Prerequisites
+
+  * 3 CentOS 7.5 Servers
+  * 10.0.0.175  k8s-master
+    10.0.0.7    node01
+    10.0.0.110  node02
+
+
+- Install Kubernetes
+  
+  * Disable SELinux
+    setenforce 0
+    sed -i --follow-symlinks 's/SELINUX=enforcing/SELINUX=disabled/g' /etc/sysconfig/selinux
+  
+  * Enable br_netfilter Kernel Module
+    modprobe br_netfilter
+    echo '1' > /proc/sys/net/bridge/bridge-nf-call-iptables
+
+  * Disable SWAP
+    swapoff -a
+    vim /etc/fstab
+    
+  * Install Docker CE
+    yum install -y yum-utils device-mapper-persistent-data lvm2
+    yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+    yum install -y docker-ce
+
+  * Install Kubernetes
+    - Add the kubernetes repository to the centos 7 system by running the following command
+      cat <<EOF > /etc/yum.repos.d/kubernetes.repo
+      [kubernetes]
+      name=Kubernetes
+      baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64
+      enabled=1
+      gpgcheck=1
+      repo_gpgcheck=1
+      gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg
+             https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
+      EOF
+
+    - install the kubernetes packages kubeadm, kubelet, and kubectl
+      yum install -y kubelet kubeadm kubectl
+
+    - Reboot
+      sudo reboot
+
+    - Log in again to the server and start the services, docker and kubelet
+      systemctl start docker && systemctl enable docker
+      systemctl start kubelet && systemctl enable kubelet
+  
+  * Change the cgroup-driver
+    - need to make sure the docker-ce and kbuernetes are using same 'cgroup'
+    
+    - Check docker group
+      docker info | grep -i cgroup
+      
+    - Change the kubernetes cgroup-driver to 'cgroups'
+      sed -i 's/cgroup-driver=systemd/cgroup-driver=cgroupfs/g' /etc/systemd/system/kubelet.service.d/10-kubeadm.conf
+  
+    - Reload the systemd system and restart the kubelet service
+      systemctl daemon-reload
+      systemctl restart kubelet
+
+- Kubernetes Cluster Initialization
+  
+  * Move shell to master server (k8s-master) and run command below to set up K8s master
+    kubeadm init --apiserver-advertise-address=10.0.15.175 --pod-network-cidr=10.244.0.0/16
+
+
+  
+- Install Docker CE
+
+
+- References
+  * https://www.howtoforge.com/tutorial/centos-kubernetes-docker-cluster/#-disable-swap
+  

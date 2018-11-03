@@ -1,0 +1,30 @@
+Creating a Custom Cluster from Scratch
+=======================================
+
+1) Configuring and Installing Base Software on Nodes
+   - Docker
+   - rkt
+   - kubelet
+   - kube-proxy
+   - Networking
+   - Other
+   - Using Configuration Management
+   
+2) Bootstrapping the Cluster
+   - etcd
+   - Apiserver, Controller Manager, and Scheduler
+     * Apiserver pod template
+       Cloud Providers
+     * Scheduler pod template
+     * Controller Manager Template
+     * Starting and Verifying Apiserver, Scheduler, and Controller Manager
+   - Starting Cluster Services
+
+3) Troubleshooting
+   - Running validate-cluster
+   - Inspect pods and services
+   - Try Examples
+   - Running the Conformance Test
+   - Networking
+   - Getting Help
+

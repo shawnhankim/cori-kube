@@ -1,0 +1,33 @@
+Creating a Custom Cluster from Scratch
+(Designing and Preparing)
+=======================================
+
+- Cloud Provider
+
+- Nodes
+
+- Network
+  * Network Connectivity
+  * Network Policy
+
+- Cluster Naming
+
+- Software Binaries
+  * Downloading and Extracting Kubernetes Binaries
+  * Selecting Images
+
+- Security Models
+  * Preparing Certs
+  * Preparing Credentials
+  
+- Notes.
+  * Apiserver and etcd together are fine on a machine with 1 core and 1GB RAM for clusters with 10s of nodes. Larger or more active clusters may benefit from more cores
+    - [Question] How many API servers are recommended with 100s nodes
+  * Classiess Inter-Domain Routing(CIDR) : Subnet Range
+    - /24 per node supports 254 pods per machine
+    - 10.10.0.0/16 as the range for the cluster, with up to 256 nodes using 10.10.0.0/24 through 10.10.255.0/24
+      
+    
+    
+    
+    
