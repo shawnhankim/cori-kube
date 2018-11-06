@@ -1,0 +1,180 @@
+
+[centos@ip-10-0-0-110 ~]$ #!/bin/bash
+[centos@ip-10-0-0-110 ~]$
+[centos@ip-10-0-0-110 ~]$ #-----------------------------------------------------------------------------#
+[centos@ip-10-0-0-110 ~]$ #                                                                             #
+[centos@ip-10-0-0-110 ~]$ #   Install common Kubernetes components into master and worker node          #
+[centos@ip-10-0-0-110 ~]$ #                                                                             #
+[centos@ip-10-0-0-110 ~]$ #-----------------------------------------------------------------------------#
+[centos@ip-10-0-0-110 ~]$
+[centos@ip-10-0-0-110 ~]$ # Change root user
+[centos@ip-10-0-0-110 ~]$ sudo -i
+[root@ip-10-0-0-110 ~]#
+[root@ip-10-0-0-110 ~]#
+[root@ip-10-0-0-110 ~]# # Setup repository and turn off SELinux
+[root@ip-10-0-0-110 ~]# cat <<EOF > /etc/yum.repos.d/kubernetes.repo
+> [kubernetes]
+> name=Kubernetes
+> baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64
+> enabled=1
+> gpgcheck=1
+> repo_gpgcheck=1
+> gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
+> exclude=kube*
+> EOF
+[root@ip-10-0-0-110 ~]#
+[root@ip-10-0-0-110 ~]# setenforce 0
+setenforce: SELinux is disabled
+[root@ip-10-0-0-110 ~]#
+[root@ip-10-0-0-110 ~]# # Install kubelet, kubeadm, kubectl
+[root@ip-10-0-0-110 ~]# yum install -y kubelet kubeadm kubectl --disableexcludes=kubernetes
+Loaded plugins: fastestmirror
+Loading mirror speeds from cached hostfile
+ * base: mirrors.cat.pdx.edu
+ * centos-virt-xen-epel: mirrors.cat.pdx.edu
+ * epel: mirrors.cat.pdx.edu
+ * extras: mirrors.cat.pdx.edu
+ * updates: mirrors.cat.pdx.edu
+kubernetes/signature                                                                                   |  454 B  00:00:00
+Retrieving key from https://packages.cloud.google.com/yum/doc/yum-key.gpg
+Importing GPG key 0xA7317B0F:
+ Userid     : "Google Cloud Packages Automatic Signing Key <gc-team@google.com>"
+ Fingerprint: d0bc 747f d8ca f711 7500 d6fa 3746 c208 a731 7b0f
+ From       : https://packages.cloud.google.com/yum/doc/yum-key.gpg
+Retrieving key from https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
+kubernetes/signature                                                                                   | 1.4 kB  00:00:05 !!!
+kubernetes/primary                                                                                     |  37 kB  00:00:00
+kubernetes                                                                                                            272/272
+Resolving Dependencies
+--> Running transaction check
+---> Package kubeadm.x86_64 0:1.12.2-0 will be installed
+--> Processing Dependency: kubernetes-cni >= 0.6.0 for package: kubeadm-1.12.2-0.x86_64
+--> Processing Dependency: cri-tools >= 1.11.0 for package: kubeadm-1.12.2-0.x86_64
+---> Package kubectl.x86_64 0:1.12.2-0 will be installed
+---> Package kubelet.x86_64 0:1.12.2-0 will be installed
+--> Processing Dependency: socat for package: kubelet-1.12.2-0.x86_64
+--> Processing Dependency: ebtables for package: kubelet-1.12.2-0.x86_64
+--> Running transaction check
+---> Package cri-tools.x86_64 0:1.12.0-0 will be installed
+---> Package ebtables.x86_64 0:2.0.10-16.el7 will be installed
+---> Package kubernetes-cni.x86_64 0:0.6.0-0 will be installed
+---> Package socat.x86_64 0:1.7.3.2-2.el7 will be installed
+--> Finished Dependency Resolution
+
+Dependencies Resolved
+
+==============================================================================================================================
+ Package                          Arch                     Version                         Repository                    Size
+==============================================================================================================================
+Installing:
+ kubeadm                          x86_64                   1.12.2-0                        kubernetes                   7.2 M
+ kubectl                          x86_64                   1.12.2-0                        kubernetes                   7.7 M
+ kubelet                          x86_64                   1.12.2-0                        kubernetes                    19 M
+Installing for dependencies:
+ cri-tools                        x86_64                   1.12.0-0                        kubernetes                   4.2 M
+ ebtables                         x86_64                   2.0.10-16.el7                   base                         123 k
+ kubernetes-cni                   x86_64                   0.6.0-0                         kubernetes                   8.6 M
+ socat                            x86_64                   1.7.3.2-2.el7                   base                         290 k
+
+Transaction Summary
+==============================================================================================================================
+Install  3 Packages (+4 Dependent packages)
+
+Total download size: 47 M
+Installed size: 237 M
+Downloading packages:
+warning: /var/cache/yum/x86_64/7/kubernetes/packages/6bd058ff754287c0b6b7431ee8f08bd35af40b0b1d098d94acf1448de0c8053b-kubeadm-1.12.2-0.x86_64.rpm: Header V4 RSA/SHA512 Signature, key ID 3e1ba8d5: NOKEY
+Public key for 6bd058ff754287c0b6b7431ee8f08bd35af40b0b1d098d94acf1448de0c8053b-kubeadm-1.12.2-0.x86_64.rpm is not installed
+(1/7): 6bd058ff754287c0b6b7431ee8f08bd35af40b0b1d098d94acf1448de0c8053b-kubeadm-1.12.2-0.x86_64.rpm    | 7.2 MB  00:00:00
+(2/7): ebtables-2.0.10-16.el7.x86_64.rpm                                                               | 123 kB  00:00:00
+(3/7): 53edc739a0e51a4c17794de26b13ee5df939bd3161b37f503fe2af8980b41a89-cri-tools-1.12.0-0.x86_64.rpm  | 4.2 MB  00:00:00
+(4/7): ead06eb2dc5ff86ca39823fa5f9e944b2f197e681b76ea0ba4a72f5ca6c51f32-kubectl-1.12.2-0.x86_64.rpm    | 7.7 MB  00:00:00
+(5/7): fe33057ffe95bfae65e2f269e1b05e99308853176e24a4d027bc082b471a07c0-kubernetes-cni-0.6.0-0.x86_64. | 8.6 MB  00:00:00
+(6/7): socat-1.7.3.2-2.el7.x86_64.rpm                                                                  | 290 kB  00:00:00
+(7/7): c2c59cf03fa14b8d91026c94d63c877091d54ae8492ee3f49faa7aeccd5cac3f-kubelet-1.12.2-0.x86_64.rpm    |  19 MB  00:00:00
+------------------------------------------------------------------------------------------------------------------------------
+Total                                                                                          31 MB/s |  47 MB  00:00:01
+Retrieving key from https://packages.cloud.google.com/yum/doc/yum-key.gpg
+Importing GPG key 0xA7317B0F:
+ Userid     : "Google Cloud Packages Automatic Signing Key <gc-team@google.com>"
+ Fingerprint: d0bc 747f d8ca f711 7500 d6fa 3746 c208 a731 7b0f
+ From       : https://packages.cloud.google.com/yum/doc/yum-key.gpg
+Retrieving key from https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
+Importing GPG key 0x3E1BA8D5:
+ Userid     : "Google Cloud Packages RPM Signing Key <gc-team@google.com>"
+ Fingerprint: 3749 e1ba 95a8 6ce0 5454 6ed2 f09c 394c 3e1b a8d5
+ From       : https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
+Running transaction check
+Running transaction test
+Transaction test succeeded
+Running transaction
+  Installing : kubectl-1.12.2-0.x86_64                                                                                    1/7
+  Installing : ebtables-2.0.10-16.el7.x86_64                                                                              2/7
+  Installing : socat-1.7.3.2-2.el7.x86_64                                                                                 3/7
+  Installing : kubernetes-cni-0.6.0-0.x86_64                                                                              4/7
+  Installing : kubelet-1.12.2-0.x86_64                                                                                    5/7
+  Installing : cri-tools-1.12.0-0.x86_64                                                                                  6/7
+  Installing : kubeadm-1.12.2-0.x86_64                                                                                    7/7
+  Verifying  : kubeadm-1.12.2-0.x86_64                                                                                    1/7
+  Verifying  : cri-tools-1.12.0-0.x86_64                                                                                  2/7
+  Verifying  : kubelet-1.12.2-0.x86_64                                                                                    3/7
+  Verifying  : kubernetes-cni-0.6.0-0.x86_64                                                                              4/7
+  Verifying  : socat-1.7.3.2-2.el7.x86_64                                                                                 5/7
+  Verifying  : ebtables-2.0.10-16.el7.x86_64                                                                              6/7
+  Verifying  : kubectl-1.12.2-0.x86_64                                                                                    7/7
+
+Installed:
+  kubeadm.x86_64 0:1.12.2-0                kubectl.x86_64 0:1.12.2-0                kubelet.x86_64 0:1.12.2-0
+
+Dependency Installed:
+  cri-tools.x86_64 0:1.12.0-0  ebtables.x86_64 0:2.0.10-16.el7  kubernetes-cni.x86_64 0:0.6.0-0  socat.x86_64 0:1.7.3.2-2.el7
+
+Complete!
+[root@ip-10-0-0-110 ~]# systemctl enable kubelet && systemctl start kubelet
+Created symlink from /etc/systemd/system/multi-user.target.wants/kubelet.service to /etc/systemd/system/kubelet.service.
+[root@ip-10-0-0-110 ~]# # Update network configuration
+[root@ip-10-0-0-110 ~]# echo 1 > /proc/sys/net/ipv4/ip_forward
+[root@ip-10-0-0-110 ~]#
+[root@ip-10-0-0-110 ~]# # Turn off swap
+[root@ip-10-0-0-110 ~]# swapoff -a
+[root@ip-10-0-0-110 ~]#
+[root@ip-10-0-0-110 ~]# # Configure system
+[root@ip-10-0-0-110 ~]# cat <<EOF >  /etc/sysctl.d/k8s.conf
+> net.bridge.bridge-nf-call-ip6tables = 1
+> net.bridge.bridge-nf-call-iptables = 1
+> EOF
+[root@ip-10-0-0-110 ~]#
+[root@ip-10-0-0-110 ~]# sysctl --system
+* Applying /etc/sysctl.d/00-chef-highperf.conf ...
+vm.swappiness = 10
+vm.max_map_count = 262144
+vm.dirty_ratio = 20
+vm.dirty_background_ratio = 30
+vm.dirty_expire_centisecs = 30000
+* Applying /usr/lib/sysctl.d/00-system.conf ...
+net.bridge.bridge-nf-call-ip6tables = 0
+net.bridge.bridge-nf-call-iptables = 0
+net.bridge.bridge-nf-call-arptables = 0
+* Applying /usr/lib/sysctl.d/10-default-yama-scope.conf ...
+kernel.yama.ptrace_scope = 0
+* Applying /usr/lib/sysctl.d/50-default.conf ...
+kernel.sysrq = 16
+kernel.core_uses_pid = 1
+net.ipv4.conf.default.rp_filter = 1
+net.ipv4.conf.all.rp_filter = 1
+net.ipv4.conf.default.accept_source_route = 0
+net.ipv4.conf.all.accept_source_route = 0
+net.ipv4.conf.default.promote_secondaries = 1
+net.ipv4.conf.all.promote_secondaries = 1
+fs.protected_hardlinks = 1
+fs.protected_symlinks = 1
+* Applying /etc/sysctl.d/99-sysctl.conf ...
+* Applying /etc/sysctl.d/k8s.conf ...
+net.bridge.bridge-nf-call-ip6tables = 1
+net.bridge.bridge-nf-call-iptables = 1
+* Applying /etc/sysctl.conf ...
+[root@ip-10-0-0-110 ~]#
+[root@ip-10-0-0-110 ~]# # Register configuration into system and execute kubelet
+[root@ip-10-0-0-110 ~]# systemctl daemon-reload
+[root@ip-10-0-0-110 ~]# systemctl restart kubelet
+[root@ip-10-0-0-110 ~]# systemctl enable kubelet
