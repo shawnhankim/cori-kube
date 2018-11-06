@@ -1,0 +1,144 @@
+[root@ip-10-0-0-45 ~]# #!/bin/bash
+[root@ip-10-0-0-45 ~]#
+[root@ip-10-0-0-45 ~]# #-----------------------------------------------------------------------------#
+[root@ip-10-0-0-45 ~]# #                                                                             #
+[root@ip-10-0-0-45 ~]# #   Install Kubernetes components into master node                            #
+[root@ip-10-0-0-45 ~]# #                                                                             #
+[root@ip-10-0-0-45 ~]# #-----------------------------------------------------------------------------#
+[root@ip-10-0-0-45 ~]#
+[root@ip-10-0-0-45 ~]#
+[root@ip-10-0-0-45 ~]# vi /etc/hosts
+[root@ip-10-0-0-45 ~]#
+[root@ip-10-0-0-45 ~]#
+[root@ip-10-0-0-45 ~]# # Setup ip_forward rule as a "1"
+[root@ip-10-0-0-45 ~]# echo 1 > /proc/sys/net/ipv4/ip_forward
+[root@ip-10-0-0-45 ~]#
+[root@ip-10-0-0-45 ~]# # Initialize kubeadm using Flannel
+[root@ip-10-0-0-45 ~]# kubeadm init --pod-network-cidr=10.244.0.0/16
+[init] using Kubernetes version: v1.12.2
+[preflight] running pre-flight checks
+[preflight/images] Pulling images required for setting up a Kubernetes cluster
+[preflight/images] This might take a minute or two, depending on the speed of your internet connection
+[preflight/images] You can also perform this action in beforehand using 'kubeadm config images pull'
+[kubelet] Writing kubelet environment file with flags to file "/var/lib/kubelet/kubeadm-flags.env"
+[kubelet] Writing kubelet configuration to file "/var/lib/kubelet/config.yaml"
+[preflight] Activating the kubelet service
+[certificates] Generated front-proxy-ca certificate and key.
+[certificates] Generated front-proxy-client certificate and key.
+[certificates] Generated etcd/ca certificate and key.
+[certificates] Generated etcd/server certificate and key.
+[certificates] etcd/server serving cert is signed for DNS names [ip-10-0-0-45.us-west-2.compute.internal localhost] and IPs [127.0.0.1 ::1]
+[certificates] Generated etcd/peer certificate and key.
+[certificates] etcd/peer serving cert is signed for DNS names [ip-10-0-0-45.us-west-2.compute.internal localhost] and IPs [10.0.0.45 127.0.0.1 ::1]
+[certificates] Generated etcd/healthcheck-client certificate and key.
+[certificates] Generated apiserver-etcd-client certificate and key.
+[certificates] Generated ca certificate and key.
+[certificates] Generated apiserver certificate and key.
+[certificates] apiserver serving cert is signed for DNS names [ip-10-0-0-45.us-west-2.compute.internal kubernetes kubernetes.default kubernetes.default.svc kubernetes.default.svc.cluster.local] and IPs [10.96.0.1 10.0.0.45]
+[certificates] Generated apiserver-kubelet-client certificate and key.
+[certificates] valid certificates and keys now exist in "/etc/kubernetes/pki"
+[certificates] Generated sa key and public key.
+[kubeconfig] Wrote KubeConfig file to disk: "/etc/kubernetes/admin.conf"
+[kubeconfig] Wrote KubeConfig file to disk: "/etc/kubernetes/kubelet.conf"
+[kubeconfig] Wrote KubeConfig file to disk: "/etc/kubernetes/controller-manager.conf"
+[kubeconfig] Wrote KubeConfig file to disk: "/etc/kubernetes/scheduler.conf"
+[controlplane] wrote Static Pod manifest for component kube-apiserver to "/etc/kubernetes/manifests/kube-apiserver.yaml"
+[controlplane] wrote Static Pod manifest for component kube-controller-manager to "/etc/kubernetes/manifests/kube-controller-manager.yaml"
+[controlplane] wrote Static Pod manifest for component kube-scheduler to "/etc/kubernetes/manifests/kube-scheduler.yaml"
+[etcd] Wrote Static Pod manifest for a local etcd instance to "/etc/kubernetes/manifests/etcd.yaml"
+[init] waiting for the kubelet to boot up the control plane as Static Pods from directory "/etc/kubernetes/manifests"
+[init] this might take a minute or longer if the control plane images have to be pulled
+[apiclient] All control plane components are healthy after 21.002156 seconds
+[uploadconfig] storing the configuration used in ConfigMap "kubeadm-config" in the "kube-system" Namespace
+[kubelet] Creating a ConfigMap "kubelet-config-1.12" in namespace kube-system with the configuration for the kubelets in the cluster
+[markmaster] Marking the node ip-10-0-0-45.us-west-2.compute.internal as master by adding the label "node-role.kubernetes.io/master=''"
+[markmaster] Marking the node ip-10-0-0-45.us-west-2.compute.internal as master by adding the taints [node-role.kubernetes.io/master:NoSchedule]
+[patchnode] Uploading the CRI Socket information "/var/run/dockershim.sock" to the Node API object "ip-10-0-0-45.us-west-2.compute.internal" as an annotation
+[bootstraptoken] using token: eqzaye.rk8hsl5qswwhdpkp
+[bootstraptoken] configured RBAC rules to allow Node Bootstrap tokens to post CSRs in order for nodes to get long term certificate credentials
+[bootstraptoken] configured RBAC rules to allow the csrapprover controller automatically approve CSRs from a Node Bootstrap Token
+[bootstraptoken] configured RBAC rules to allow certificate rotation for all node client certificates in the cluster
+[bootstraptoken] creating the "cluster-info" ConfigMap in the "kube-public" namespace
+[addons] Applied essential addon: CoreDNS
+[addons] Applied essential addon: kube-proxy
+
+Your Kubernetes master has initialized successfully!
+
+To start using your cluster, you need to run the following as a regular user:
+
+  mkdir -p $HOME/.kube
+  sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+  sudo chown $(id -u):$(id -g) $HOME/.kube/config
+
+You should now deploy a pod network to the cluster.
+Run "kubectl apply -f [podnetwork].yaml" with one of the options listed at:
+  https://kubernetes.io/docs/concepts/cluster-administration/addons/
+
+You can now join any number of machines by running the following on each node
+as root:
+
+  kubeadm join 10.0.0.45:6443 --token eqzaye.rk8hsl5qswwhdpkp --discovery-token-ca-cert-hash sha256:1f6c58b93ebb38654268a65a5e29c74a09f8b5f9309515028e0c043e3d18c2d1
+
+[root@ip-10-0-0-45 ~]#
+[root@ip-10-0-0-45 ~]# # Exit from root
+[root@ip-10-0-0-45 ~]# mkdir -p $HOME/.kube
+[root@ip-10-0-0-45 ~]# sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+[root@ip-10-0-0-45 ~]# sudo chown $(id -u):$(id -g) $HOME/.kube/config
+[root@ip-10-0-0-45 ~]#
+[root@ip-10-0-0-45 ~]# # Change root user
+[root@ip-10-0-0-45 ~]# sudo -i
+[root@ip-10-0-0-45 ~]#
+[root@ip-10-0-0-45 ~]# # Add environment variable
+[root@ip-10-0-0-45 ~]# export KUBECONFIG=/etc/kubernetes/admin.conf
+[root@ip-10-0-0-45 ~]#
+[root@ip-10-0-0-45 ~]# # Install the latest version of Flannel
+[root@ip-10-0-0-45 ~]# kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
+clusterrole.rbac.authorization.k8s.io/flannel created
+clusterrolebinding.rbac.authorization.k8s.io/flannel created
+serviceaccount/flannel created
+configmap/kube-flannel-cfg created
+daemonset.extensions/kube-flannel-ds-amd64 created
+daemonset.extensions/kube-flannel-ds-arm64 created
+daemonset.extensions/kube-flannel-ds-arm created
+daemonset.extensions/kube-flannel-ds-ppc64le created
+daemonset.extensions/kube-flannel-ds-s390x created
+
+[root@ip-10-0-0-45 ~]# kubectl get pods --all-namespaces
+No resources found.
+[root@ip-10-0-0-45 ~]#
+[root@ip-10-0-0-45 ~]# ls -al
+total 24
+dr-xr-x---.  5 root root  149 Nov  6 22:23 .
+dr-xr-xr-x. 17 root root  244 Aug  6 13:18 ..
+-rw-------.  1 root root 3977 Nov  6 22:37 .bash_history
+-rw-r--r--.  1 root root   18 Sep  6  2017 .bash_logout
+-rw-r--r--.  1 root root  193 Sep  6  2017 .bash_profile
+-rw-r--r--.  1 root root  231 Sep  6  2017 .bashrc
+-rw-r--r--.  1 root root  100 Dec 29  2013 .cshrc
+drwxr-xr-x   4 root root   51 Nov  6 22:40 .kube
+drwxr-----.  3 root root   19 Jan 11  2018 .pki
+drwx------.  2 root root   29 Aug  6 08:42 .ssh
+-rw-r--r--.  1 root root  129 Dec 29  2013 .tcshrc
+[root@ip-10-0-0-45 ~]#
+[root@ip-10-0-0-45 ~]#
+[root@ip-10-0-0-45 ~]# ls -al .kube
+total 12
+drwxr-xr-x  4 root root   51 Nov  6 22:40 .
+dr-xr-x---. 5 root root  149 Nov  6 22:23 ..
+drwxr-xr-x  3 root root   23 Nov  6 22:40 cache
+-rw-------  1 root root 5449 Nov  6 22:40 config
+drwxr-xr-x  3 root root 4096 Nov  6 22:40 http-cache
+
+
+[root@ip-10-0-0-45 ~]# # Check the list pods which are installed
+[root@ip-10-0-0-45 ~]# kubectl get pods --all-namespaces
+NAMESPACE     NAME                                                              READY   STATUS    RESTARTS   AGE
+kube-system   coredns-576cbf47c7-bgdvw                                          1/1     Running   0          4m11s
+kube-system   coredns-576cbf47c7-nvfhz                                          1/1     Running   0          4m11s
+kube-system   etcd-ip-10-0-0-45.us-west-2.compute.internal                      1/1     Running   0          3m29s
+kube-system   kube-apiserver-ip-10-0-0-45.us-west-2.compute.internal            1/1     Running   0          3m24s
+kube-system   kube-controller-manager-ip-10-0-0-45.us-west-2.compute.internal   1/1     Running   0          3m9s
+kube-system   kube-flannel-ds-amd64-m2hds                                       1/1     Running   0          25s
+kube-system   kube-proxy-4w65g                                                  1/1     Running   0          4m11s
+kube-system   kube-scheduler-ip-10-0-0-45.us-west-2.compute.internal            1/1     Running   0          3m8s
+
