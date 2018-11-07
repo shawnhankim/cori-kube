@@ -1,0 +1,552 @@
+[root@ip-10-0-0-71 ~]# /home/centos/install-docker-common-kube.sh
++ RED='\033[0;31m'
++ NC='\033[0m'
++ '[' 0 -ne 0 ']'
++ echo -e '\033[0;31mUPDATE YUM\033[0m'
+UPDATE YUM
++ sudo yum update -y
+Loaded plugins: fastestmirror
+Determining fastest mirrors
+centos-virt-xen-epel/7/x86_64/metalink                                                                                                                               |  16 kB  00:00:00
+epel/x86_64/metalink                                                                                                                                                 |  16 kB  00:00:00
+ * base: mirrors.cat.pdx.edu
+ * centos-virt-xen-epel: mirrors.cat.pdx.edu
+ * epel: mirrors.cat.pdx.edu
+ * extras: mirrors.cat.pdx.edu
+ * updates: mirrors.cat.pdx.edu
+base                                                                                                                                                                 | 3.6 kB  00:00:00
+centos-virt-xen                                                                                                                                                      | 2.9 kB  00:00:00
+centos-virt-xen-epel                                                                                                                                                 | 3.2 kB  00:00:00
+centos-virt-xen-testing                                                                                                                                              | 2.9 kB  00:00:00
+docker-ce-stable                                                                                                                                                     | 2.9 kB  00:00:00
+epel                                                                                                                                                                 | 3.2 kB  00:00:00
+extras                                                                                                                                                               | 3.4 kB  00:00:00
+updates                                                                                                                                                              | 3.4 kB  00:00:00
+(1/11): centos-virt-xen-epel/7/x86_64/group_gz                                                                                                                       |  88 kB  00:00:00
+(2/11): docker-ce-stable/x86_64/primary_db                                                                                                                           |  17 kB  00:00:00
+(3/11): centos-virt-xen/7/x86_64/primary_db                                                                                                                          | 4.5 MB  00:00:01
+(4/11): centos-virt-xen-testing/7/x86_64/primary_db                                                                                                                  |  13 MB  00:00:01
+(5/11): centos-virt-xen-epel/7/x86_64/updateinfo                                                                                                                     | 934 kB  00:00:02
+(6/11): epel/x86_64/group_gz                                                                                                                                         |  88 kB  00:00:00
+(7/11): centos-virt-xen-epel/7/x86_64/primary                                                                                                                        | 3.6 MB  00:00:03
+(8/11): extras/7/x86_64/primary_db                                                                                                                                   | 204 kB  00:00:00
+(9/11): updates/7/x86_64/primary_db                                                                                                                                  | 6.0 MB  00:00:00
+(10/11): epel/x86_64/updateinfo                                                                                                                                      | 934 kB  00:00:00
+(11/11): epel/x86_64/primary                                                                                                                                         | 3.6 MB  00:00:09
+centos-virt-xen-epel                                                                                                                                                            12746/12746
+epel                                                                                                                                                                            12746/12746
+Resolving Dependencies
+--> Running transaction check
+---> Package audit.x86_64 0:2.8.1-3.el7 will be updated
+---> Package audit.x86_64 0:2.8.1-3.el7_5.1 will be an update
+---> Package audit-libs.x86_64 0:2.8.1-3.el7 will be updated
+---> Package audit-libs.x86_64 0:2.8.1-3.el7_5.1 will be an update
+---> Package audit-libs-python.x86_64 0:2.8.1-3.el7 will be updated
+---> Package audit-libs-python.x86_64 0:2.8.1-3.el7_5.1 will be an update
+---> Package bind-libs.x86_64 32:9.9.4-61.el7 will be updated
+---> Package bind-libs.x86_64 32:9.9.4-61.el7_5.1 will be an update
+---> Package bind-libs-lite.x86_64 32:9.9.4-61.el7 will be updated
+---> Package bind-libs-lite.x86_64 32:9.9.4-61.el7_5.1 will be an update
+---> Package bind-license.noarch 32:9.9.4-61.el7 will be updated
+---> Package bind-license.noarch 32:9.9.4-61.el7_5.1 will be an update
+---> Package bind-utils.x86_64 32:9.9.4-61.el7 will be updated
+---> Package bind-utils.x86_64 32:9.9.4-61.el7_5.1 will be an update
+---> Package centos-release.x86_64 0:7-5.1804.1.el7.centos will be updated
+---> Package centos-release.x86_64 0:7-5.1804.5.el7.centos will be an update
+---> Package container-selinux.noarch 2:2.66-1.el7 will be updated
+---> Package container-selinux.noarch 2:2.68-1.el7 will be an update
+---> Package dracut.x86_64 0:033-535.el7 will be updated
+---> Package dracut.x86_64 0:033-535.el7_5.1 will be an update
+---> Package dracut-config-generic.x86_64 0:033-535.el7 will be updated
+---> Package dracut-config-generic.x86_64 0:033-535.el7_5.1 will be an update
+---> Package dracut-config-rescue.x86_64 0:033-535.el7 will be updated
+---> Package dracut-config-rescue.x86_64 0:033-535.el7_5.1 will be an update
+---> Package dracut-network.x86_64 0:033-535.el7 will be updated
+---> Package dracut-network.x86_64 0:033-535.el7_5.1 will be an update
+---> Package initscripts.x86_64 0:9.49.41-1.el7 will be updated
+---> Package initscripts.x86_64 0:9.49.41-1.el7_5.2 will be an update
+---> Package kernel.x86_64 0:4.9.127-32.el7 will be installed
+---> Package kernel-tools.x86_64 0:3.10.0-862.9.1.el7 will be updated
+---> Package kernel-tools.x86_64 0:3.10.0-862.14.4.el7 will be an update
+---> Package kernel-tools-libs.x86_64 0:3.10.0-862.9.1.el7 will be updated
+---> Package kernel-tools-libs.x86_64 0:3.10.0-862.14.4.el7 will be an update
+---> Package kexec-tools.x86_64 0:2.0.15-13.el7 will be updated
+---> Package kexec-tools.x86_64 0:2.0.15-13.el7_5.2 will be an update
+---> Package kpartx.x86_64 0:0.4.9-119.el7 will be updated
+---> Package kpartx.x86_64 0:0.4.9-119.el7_5.1 will be an update
+---> Package libblkid.x86_64 0:2.23.2-52.el7 will be updated
+---> Package libblkid.x86_64 0:2.23.2-52.el7_5.1 will be an update
+---> Package libmount.x86_64 0:2.23.2-52.el7 will be updated
+---> Package libmount.x86_64 0:2.23.2-52.el7_5.1 will be an update
+---> Package libuuid.x86_64 0:2.23.2-52.el7 will be updated
+---> Package libuuid.x86_64 0:2.23.2-52.el7_5.1 will be an update
+---> Package mariadb-libs.x86_64 1:5.5.56-2.el7 will be updated
+---> Package mariadb-libs.x86_64 1:5.5.60-1.el7_5 will be an update
+---> Package microcode_ctl.x86_64 2:2.1-29.10.el7_5 will be updated
+---> Package microcode_ctl.x86_64 2:2.1-29.16.el7_5 will be an update
+---> Package nss.x86_64 0:3.36.0-5.el7_5 will be updated
+---> Package nss.x86_64 0:3.36.0-7.el7_5 will be an update
+---> Package nss-sysinit.x86_64 0:3.36.0-5.el7_5 will be updated
+---> Package nss-sysinit.x86_64 0:3.36.0-7.el7_5 will be an update
+---> Package nss-tools.x86_64 0:3.36.0-5.el7_5 will be updated
+---> Package nss-tools.x86_64 0:3.36.0-7.el7_5 will be an update
+---> Package perf.x86_64 0:4.9.112-32.el7 will be updated
+---> Package perf.x86_64 0:4.9.127-32.el7 will be an update
+---> Package python-perf.x86_64 0:3.10.0-862.9.1.el7 will be updated
+---> Package python-perf.x86_64 0:3.10.0-862.14.4.el7 will be an update
+---> Package selinux-policy.noarch 0:3.13.1-192.el7_5.4 will be updated
+---> Package selinux-policy.noarch 0:3.13.1-192.el7_5.6 will be an update
+---> Package selinux-policy-targeted.noarch 0:3.13.1-192.el7_5.4 will be updated
+---> Package selinux-policy-targeted.noarch 0:3.13.1-192.el7_5.6 will be an update
+---> Package systemd.x86_64 0:219-57.el7 will be updated
+---> Package systemd.x86_64 0:219-57.el7_5.3 will be an update
+---> Package systemd-libs.x86_64 0:219-57.el7 will be updated
+---> Package systemd-libs.x86_64 0:219-57.el7_5.3 will be an update
+---> Package systemd-sysv.x86_64 0:219-57.el7 will be updated
+---> Package systemd-sysv.x86_64 0:219-57.el7_5.3 will be an update
+---> Package tuned.noarch 0:2.9.0-1.el7 will be updated
+---> Package tuned.noarch 0:2.9.0-1.el7_5.2 will be an update
+---> Package tzdata.noarch 0:2018e-3.el7 will be updated
+---> Package tzdata.noarch 0:2018f-2.el7 will be an update
+---> Package util-linux.x86_64 0:2.23.2-52.el7 will be updated
+---> Package util-linux.x86_64 0:2.23.2-52.el7_5.1 will be an update
+--> Finished Dependency Resolution
+
+Dependencies Resolved
+
+============================================================================================================================================================================================
+ Package                                             Arch                               Version                                           Repository                                   Size
+============================================================================================================================================================================================
+Installing:
+ kernel                                              x86_64                             4.9.127-32.el7                                    centos-virt-xen                              42 M
+Updating:
+ audit                                               x86_64                             2.8.1-3.el7_5.1                                   updates                                     247 k
+ audit-libs                                          x86_64                             2.8.1-3.el7_5.1                                   updates                                      99 k
+ audit-libs-python                                   x86_64                             2.8.1-3.el7_5.1                                   updates                                      75 k
+ bind-libs                                           x86_64                             32:9.9.4-61.el7_5.1                               updates                                     1.0 M
+ bind-libs-lite                                      x86_64                             32:9.9.4-61.el7_5.1                               updates                                     734 k
+ bind-license                                        noarch                             32:9.9.4-61.el7_5.1                               updates                                      85 k
+ bind-utils                                          x86_64                             32:9.9.4-61.el7_5.1                               updates                                     204 k
+ centos-release                                      x86_64                             7-5.1804.5.el7.centos                             updates                                      25 k
+ container-selinux                                   noarch                             2:2.68-1.el7                                      extras                                       36 k
+ dracut                                              x86_64                             033-535.el7_5.1                                   updates                                     325 k
+ dracut-config-generic                               x86_64                             033-535.el7_5.1                                   updates                                      56 k
+ dracut-config-rescue                                x86_64                             033-535.el7_5.1                                   updates                                      58 k
+ dracut-network                                      x86_64                             033-535.el7_5.1                                   updates                                     100 k
+ initscripts                                         x86_64                             9.49.41-1.el7_5.2                                 updates                                     437 k
+ kernel-tools                                        x86_64                             3.10.0-862.14.4.el7                               updates                                     6.3 M
+ kernel-tools-libs                                   x86_64                             3.10.0-862.14.4.el7                               updates                                     6.2 M
+ kexec-tools                                         x86_64                             2.0.15-13.el7_5.2                                 updates                                     341 k
+ kpartx                                              x86_64                             0.4.9-119.el7_5.1                                 updates                                      76 k
+ libblkid                                            x86_64                             2.23.2-52.el7_5.1                                 updates                                     178 k
+ libmount                                            x86_64                             2.23.2-52.el7_5.1                                 updates                                     180 k
+ libuuid                                             x86_64                             2.23.2-52.el7_5.1                                 updates                                      81 k
+ mariadb-libs                                        x86_64                             1:5.5.60-1.el7_5                                  updates                                     758 k
+ microcode_ctl                                       x86_64                             2:2.1-29.16.el7_5                                 updates                                     1.4 M
+ nss                                                 x86_64                             3.36.0-7.el7_5                                    updates                                     835 k
+ nss-sysinit                                         x86_64                             3.36.0-7.el7_5                                    updates                                      62 k
+ nss-tools                                           x86_64                             3.36.0-7.el7_5                                    updates                                     515 k
+ perf                                                x86_64                             4.9.127-32.el7                                    centos-virt-xen                             1.3 M
+ python-perf                                         x86_64                             3.10.0-862.14.4.el7                               updates                                     6.3 M
+ selinux-policy                                      noarch                             3.13.1-192.el7_5.6                                updates                                     453 k
+ selinux-policy-targeted                             noarch                             3.13.1-192.el7_5.6                                updates                                     6.6 M
+ systemd                                             x86_64                             219-57.el7_5.3                                    updates                                     5.0 M
+ systemd-libs                                        x86_64                             219-57.el7_5.3                                    updates                                     402 k
+ systemd-sysv                                        x86_64                             219-57.el7_5.3                                    updates                                      80 k
+ tuned                                               noarch                             2.9.0-1.el7_5.2                                   updates                                     244 k
+ tzdata                                              noarch                             2018f-2.el7                                       updates                                     484 k
+ util-linux                                          x86_64                             2.23.2-52.el7_5.1                                 updates                                     2.0 M
+
+Transaction Summary
+============================================================================================================================================================================================
+Install   1 Package
+Upgrade  36 Packages
+
+Total download size: 85 M
+Downloading packages:
+No Presto metadata available for centos-virt-xen
+Not downloading deltainfo for extras, MD is 100 k and rpms are 36 k
+updates/7/x86_64/prestodelta                                                                                                                                         | 679 kB  00:00:00
+Delta RPMs reduced 15 M of updates to 5.5 M (63% saved)
+(1/37): audit-libs-2.8.1-3.el7_2.8.1-3.el7_5.1.x86_64.drpm                                                                                                           |  19 kB  00:00:00
+(2/37): audit-libs-python-2.8.1-3.el7_2.8.1-3.el7_5.1.x86_64.drpm                                                                                                    |  20 kB  00:00:00
+(3/37): audit-2.8.1-3.el7_2.8.1-3.el7_5.1.x86_64.drpm                                                                                                                | 184 kB  00:00:00
+(4/37): bind-libs-9.9.4-61.el7_9.9.4-61.el7_5.1.x86_64.drpm                                                                                                          | 154 kB  00:00:00
+(5/37): bind-libs-lite-9.9.4-61.el7_9.9.4-61.el7_5.1.x86_64.drpm                                                                                                     | 130 kB  00:00:00
+(6/37): centos-release-7-5.1804.1.el7.centos_7-5.1804.5.el7.centos.x86_64.drpm                                                                                       |  14 kB  00:00:00
+(7/37): dracut-033-535.el7_033-535.el7_5.1.x86_64.drpm                                                                                                               | 134 kB  00:00:00
+(8/37): dracut-network-033-535.el7_033-535.el7_5.1.x86_64.drpm                                                                                                       |  66 kB  00:00:00
+(9/37): initscripts-9.49.41-1.el7_9.49.41-1.el7_5.2.x86_64.drpm                                                                                                      | 208 kB  00:00:00
+(10/37): libblkid-2.23.2-52.el7_2.23.2-52.el7_5.1.x86_64.drpm                                                                                                        |  84 kB  00:00:00
+(11/37): libmount-2.23.2-52.el7_2.23.2-52.el7_5.1.x86_64.drpm                                                                                                        |  74 kB  00:00:00
+(12/37): mariadb-libs-5.5.56-2.el7_5.5.60-1.el7_5.x86_64.drpm                                                                                                        |  73 kB  00:00:00
+(13/37): nss-3.36.0-5.el7_5_3.36.0-7.el7_5.x86_64.drpm                                                                                                               | 117 kB  00:00:00
+(14/37): microcode_ctl-2.1-29.10.el7_5_2.1-29.16.el7_5.x86_64.drpm                                                                                                   | 820 kB  00:00:00
+(15/37): nss-tools-3.36.0-5.el7_5_3.36.0-7.el7_5.x86_64.drpm                                                                                                         | 313 kB  00:00:00
+(16/37): systemd-libs-219-57.el7_219-57.el7_5.3.x86_64.drpm                                                                                                          | 126 kB  00:00:00
+(17/37): systemd-219-57.el7_219-57.el7_5.3.x86_64.drpm                                                                                                               | 1.7 MB  00:00:00
+(18/37): tuned-2.9.0-1.el7_2.9.0-1.el7_5.2.noarch.drpm                                                                                                               |  82 kB  00:00:00
+(19/37): tzdata-2018e-3.el7_2018f-2.el7.noarch.drpm                                                                                                                  | 313 kB  00:00:00
+(20/37): bind-license-9.9.4-61.el7_5.1.noarch.rpm                                                                                                                    |  85 kB  00:00:00
+(21/37): bind-utils-9.9.4-61.el7_5.1.x86_64.rpm                                                                                                                      | 204 kB  00:00:00
+(22/37): dracut-config-generic-033-535.el7_5.1.x86_64.rpm                                                                                                            |  56 kB  00:00:00
+(23/37): util-linux-2.23.2-52.el7_2.23.2-52.el7_5.1.x86_64.drpm                                                                                                      | 939 kB  00:00:00
+(24/37): dracut-config-rescue-033-535.el7_5.1.x86_64.rpm                                                                                                             |  58 kB  00:00:00
+(25/37): kernel-tools-3.10.0-862.14.4.el7.x86_64.rpm                                                                                                                 | 6.3 MB  00:00:00
+(26/37): kexec-tools-2.0.15-13.el7_5.2.x86_64.rpm                                                                                                                    | 341 kB  00:00:00
+(27/37): kpartx-0.4.9-119.el7_5.1.x86_64.rpm                                                                                                                         |  76 kB  00:00:00
+(28/37): container-selinux-2.68-1.el7.noarch.rpm                                                                                                                     |  36 kB  00:00:00
+(29/37): libuuid-2.23.2-52.el7_5.1.x86_64.rpm                                                                                                                        |  81 kB  00:00:00
+(30/37): nss-sysinit-3.36.0-7.el7_5.x86_64.rpm                                                                                                                       |  62 kB  00:00:00
+(31/37): kernel-tools-libs-3.10.0-862.14.4.el7.x86_64.rpm                                                                                                            | 6.2 MB  00:00:00
+(32/37): python-perf-3.10.0-862.14.4.el7.x86_64.rpm                                                                                                                  | 6.3 MB  00:00:00
+(33/37): selinux-policy-3.13.1-192.el7_5.6.noarch.rpm                                                                                                                | 453 kB  00:00:00
+(34/37): systemd-sysv-219-57.el7_5.3.x86_64.rpm                                                                                                                      |  80 kB  00:00:00
+(35/37): selinux-policy-targeted-3.13.1-192.el7_5.6.noarch.rpm                                                                                                       | 6.6 MB  00:00:00
+(36/37): perf-4.9.127-32.el7.x86_64.rpm                                                                                                                              | 1.3 MB  00:00:00
+(37/37): kernel-4.9.127-32.el7.x86_64.rpm                                                                                                                            |  42 MB  00:00:05
+Finishing delta rebuilds of 8 package(s) (11 M)
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Total                                                                                                                                                       7.1 MB/s |  76 MB  00:00:10
+Running transaction check
+Running transaction test
+Transaction test succeeded
+Running transaction
+  Updating   : audit-libs-2.8.1-3.el7_5.1.x86_64                                                                                                                                       1/73
+  Updating   : libuuid-2.23.2-52.el7_5.1.x86_64                                                                                                                                        2/73
+  Updating   : libblkid-2.23.2-52.el7_5.1.x86_64                                                                                                                                       3/73
+  Updating   : libmount-2.23.2-52.el7_5.1.x86_64                                                                                                                                       4/73
+  Updating   : nss-sysinit-3.36.0-7.el7_5.x86_64                                                                                                                                       5/73
+  Updating   : nss-3.36.0-7.el7_5.x86_64                                                                                                                                               6/73
+  Updating   : selinux-policy-3.13.1-192.el7_5.6.noarch                                                                                                                                7/73
+  Updating   : 32:bind-license-9.9.4-61.el7_5.1.noarch                                                                                                                                 8/73
+  Updating   : centos-release-7-5.1804.5.el7.centos.x86_64                                                                                                                             9/73
+  Updating   : systemd-libs-219-57.el7_5.3.x86_64                                                                                                                                     10/73
+  Updating   : systemd-219-57.el7_5.3.x86_64                                                                                                                                          11/73
+  Updating   : util-linux-2.23.2-52.el7_5.1.x86_64                                                                                                                                    12/73
+  Updating   : initscripts-9.49.41-1.el7_5.2.x86_64                                                                                                                                   13/73
+  Updating   : systemd-sysv-219-57.el7_5.3.x86_64                                                                                                                                     14/73
+  Updating   : 32:bind-libs-9.9.4-61.el7_5.1.x86_64                                                                                                                                   15/73
+  Updating   : selinux-policy-targeted-3.13.1-192.el7_5.6.noarch                                                                                                                      16/73
+  Updating   : kernel-tools-libs-3.10.0-862.14.4.el7.x86_64                                                                                                                           17/73
+  Updating   : python-perf-3.10.0-862.14.4.el7.x86_64                                                                                                                                 18/73
+  Updating   : kpartx-0.4.9-119.el7_5.1.x86_64                                                                                                                                        19/73
+  Updating   : dracut-033-535.el7_5.1.x86_64                                                                                                                                          20/73
+  Updating   : dracut-network-033-535.el7_5.1.x86_64                                                                                                                                  21/73
+  Updating   : kexec-tools-2.0.15-13.el7_5.2.x86_64                                                                                                                                   22/73
+  Updating   : dracut-config-generic-033-535.el7_5.1.x86_64                                                                                                                           23/73
+  Installing : kernel-4.9.127-32.el7.x86_64                                                                                                                                           24/73
+  Updating   : dracut-config-rescue-033-535.el7_5.1.x86_64                                                                                                                            25/73
+  Updating   : tuned-2.9.0-1.el7_5.2.noarch                                                                                                                                           26/73
+  Updating   : kernel-tools-3.10.0-862.14.4.el7.x86_64                                                                                                                                27/73
+  Updating   : 2:container-selinux-2.68-1.el7.noarch                                                                                                                                  28/73
+  Updating   : 32:bind-utils-9.9.4-61.el7_5.1.x86_64                                                                                                                                  29/73
+  Updating   : audit-2.8.1-3.el7_5.1.x86_64                                                                                                                                           30/73
+  Updating   : 2:microcode_ctl-2.1-29.16.el7_5.x86_64                                                                                                                                 31/73
+  Updating   : 32:bind-libs-lite-9.9.4-61.el7_5.1.x86_64                                                                                                                              32/73
+  Updating   : nss-tools-3.36.0-7.el7_5.x86_64                                                                                                                                        33/73
+  Updating   : audit-libs-python-2.8.1-3.el7_5.1.x86_64                                                                                                                               34/73
+  Updating   : perf-4.9.127-32.el7.x86_64                                                                                                                                             35/73
+  Updating   : tzdata-2018f-2.el7.noarch                                                                                                                                              36/73
+  Updating   : 1:mariadb-libs-5.5.60-1.el7_5.x86_64                                                                                                                                   37/73
+  Cleanup    : tuned-2.9.0-1.el7.noarch                                                                                                                                               38/73
+  Cleanup    : kexec-tools-2.0.15-13.el7.x86_64                                                                                                                                       39/73
+  Cleanup    : initscripts-9.49.41-1.el7.x86_64                                                                                                                                       40/73
+  Cleanup    : audit-2.8.1-3.el7.x86_64                                                                                                                                               41/73
+  Cleanup    : 2:container-selinux-2.66-1.el7.noarch                                                                                                                                  42/73
+  Cleanup    : selinux-policy-targeted-3.13.1-192.el7_5.4.noarch                                                                                                                      43/73
+  Cleanup    : systemd-sysv-219-57.el7.x86_64                                                                                                                                         44/73
+  Cleanup    : dracut-network-033-535.el7.x86_64                                                                                                                                      45/73
+  Cleanup    : dracut-config-rescue-033-535.el7.x86_64                                                                                                                                46/73
+  Cleanup    : dracut-config-generic-033-535.el7.x86_64                                                                                                                               47/73
+  Cleanup    : dracut-033-535.el7.x86_64                                                                                                                                              48/73
+  Cleanup    : util-linux-2.23.2-52.el7.x86_64                                                                                                                                        49/73
+  Cleanup    : nss-tools-3.36.0-5.el7_5.x86_64                                                                                                                                        50/73
+  Cleanup    : nss-sysinit-3.36.0-5.el7_5.x86_64                                                                                                                                      51/73
+  Cleanup    : nss-3.36.0-5.el7_5.x86_64                                                                                                                                              52/73
+  Cleanup    : 2:microcode_ctl-2.1-29.10.el7_5.x86_64                                                                                                                                 53/73
+  Cleanup    : systemd-219-57.el7.x86_64                                                                                                                                              54/73
+  Cleanup    : libmount-2.23.2-52.el7.x86_64                                                                                                                                          55/73
+  Cleanup    : libblkid-2.23.2-52.el7.x86_64                                                                                                                                          56/73
+  Cleanup    : 32:bind-utils-9.9.4-61.el7.x86_64                                                                                                                                      57/73
+  Cleanup    : 32:bind-libs-9.9.4-61.el7.x86_64                                                                                                                                       58/73
+  Cleanup    : kernel-tools-3.10.0-862.9.1.el7.x86_64                                                                                                                                 59/73
+  Cleanup    : perf-4.9.112-32.el7.x86_64                                                                                                                                             60/73
+  Cleanup    : 32:bind-libs-lite-9.9.4-61.el7.x86_64                                                                                                                                  61/73
+  Cleanup    : audit-libs-python-2.8.1-3.el7.x86_64                                                                                                                                   62/73
+  Cleanup    : 32:bind-license-9.9.4-61.el7.noarch                                                                                                                                    63/73
+  Cleanup    : centos-release-7-5.1804.1.el7.centos.x86_64                                                                                                                            64/73
+  Cleanup    : selinux-policy-3.13.1-192.el7_5.4.noarch                                                                                                                               65/73
+  Cleanup    : tzdata-2018e-3.el7.noarch                                                                                                                                              66/73
+  Cleanup    : audit-libs-2.8.1-3.el7.x86_64                                                                                                                                          67/73
+  Cleanup    : kernel-tools-libs-3.10.0-862.9.1.el7.x86_64                                                                                                                            68/73
+  Cleanup    : libuuid-2.23.2-52.el7.x86_64                                                                                                                                           69/73
+  Cleanup    : systemd-libs-219-57.el7.x86_64                                                                                                                                         70/73
+  Cleanup    : kpartx-0.4.9-119.el7.x86_64                                                                                                                                            71/73
+  Cleanup    : python-perf-3.10.0-862.9.1.el7.x86_64                                                                                                                                  72/73
+  Cleanup    : 1:mariadb-libs-5.5.56-2.el7.x86_64                                                                                                                                     73/73
+  
+  Installed:
+  kernel.x86_64 0:4.9.127-32.el7
+
+Updated:
+  audit.x86_64 0:2.8.1-3.el7_5.1                              audit-libs.x86_64 0:2.8.1-3.el7_5.1                         audit-libs-python.x86_64 0:2.8.1-3.el7_5.1
+  bind-libs.x86_64 32:9.9.4-61.el7_5.1                        bind-libs-lite.x86_64 32:9.9.4-61.el7_5.1                   bind-license.noarch 32:9.9.4-61.el7_5.1
+  bind-utils.x86_64 32:9.9.4-61.el7_5.1                       centos-release.x86_64 0:7-5.1804.5.el7.centos               container-selinux.noarch 2:2.68-1.el7
+  dracut.x86_64 0:033-535.el7_5.1                             dracut-config-generic.x86_64 0:033-535.el7_5.1              dracut-config-rescue.x86_64 0:033-535.el7_5.1
+  dracut-network.x86_64 0:033-535.el7_5.1                     initscripts.x86_64 0:9.49.41-1.el7_5.2                      kernel-tools.x86_64 0:3.10.0-862.14.4.el7
+  kernel-tools-libs.x86_64 0:3.10.0-862.14.4.el7              kexec-tools.x86_64 0:2.0.15-13.el7_5.2                      kpartx.x86_64 0:0.4.9-119.el7_5.1
+  libblkid.x86_64 0:2.23.2-52.el7_5.1                         libmount.x86_64 0:2.23.2-52.el7_5.1                         libuuid.x86_64 0:2.23.2-52.el7_5.1
+  mariadb-libs.x86_64 1:5.5.60-1.el7_5                        microcode_ctl.x86_64 2:2.1-29.16.el7_5                      nss.x86_64 0:3.36.0-7.el7_5
+  nss-sysinit.x86_64 0:3.36.0-7.el7_5                         nss-tools.x86_64 0:3.36.0-7.el7_5                           perf.x86_64 0:4.9.127-32.el7
+  python-perf.x86_64 0:3.10.0-862.14.4.el7                    selinux-policy.noarch 0:3.13.1-192.el7_5.6                  selinux-policy-targeted.noarch 0:3.13.1-192.el7_5.6
+  systemd.x86_64 0:219-57.el7_5.3                             systemd-libs.x86_64 0:219-57.el7_5.3                        systemd-sysv.x86_64 0:219-57.el7_5.3
+  tuned.noarch 0:2.9.0-1.el7_5.2                              tzdata.noarch 0:2018f-2.el7                                 util-linux.x86_64 0:2.23.2-52.el7_5.1
+
+Complete!
++ echo -e '\033[0;31mTURN OFF FIREWALLD\033[0m'
+TURN OFF FIREWALLD
++ sudo systemctl stop firewalld
+Failed to stop firewalld.service: Unit firewalld.service not loaded.
++ sudo systemctl disable firewalld
+Failed to execute operation: No such file or directory
++ echo -e '\033[0;31mREMOVING OLD VERSION DOCKER\033[0m'
+REMOVING OLD VERSION DOCKER
++ sudo yum remove -y docker docker-client docker-client-latest docker-common docker-latest docker-latest-logrotate docker-logrotate docker-selinux docker-engine-selinux docker-engine
+Loaded plugins: fastestmirror
+No Match for argument: docker
+No Match for argument: docker-client
+No Match for argument: docker-client-latest
+No Match for argument: docker-common
+No Match for argument: docker-latest
+No Match for argument: docker-latest-logrotate
+No Match for argument: docker-logrotate
+No Match for argument: docker-engine
+Resolving Dependencies
+--> Running transaction check
+---> Package container-selinux.noarch 2:2.68-1.el7 will be erased
+--> Finished Dependency Resolution
+
+Dependencies Resolved
+
+============================================================================================================================================================================================
+ Package                                            Arch                                    Version                                          Repository                                Size
+============================================================================================================================================================================================
+Removing:
+ container-selinux                                  noarch                                  2:2.68-1.el7                                     @extras                                   36 k
+
+Transaction Summary
+============================================================================================================================================================================================
+Remove  1 Package
+
+Installed size: 36 k
+Downloading packages:
+Running transaction check
+Running transaction test
+Transaction test succeeded
+Running transaction
+  Erasing    : 2:container-selinux-2.68-1.el7.noarch                                                                                                                                    1/1
+  Verifying  : 2:container-selinux-2.68-1.el7.noarch                                                                                                                                    1/1
+
+Removed:
+  container-selinux.noarch 2:2.68-1.el7
+
+Complete!
++ echo -e '\033[0;31mINSTALL REQUIRED PACKAGES\033[0m'
+INSTALL REQUIRED PACKAGES
++ sudo yum install -y yum-utils device-mapper-persistent-data lvm2
+Loaded plugins: fastestmirror
+Loading mirror speeds from cached hostfile
+ * base: mirrors.cat.pdx.edu
+ * centos-virt-xen-epel: mirrors.cat.pdx.edu
+ * epel: mirrors.cat.pdx.edu
+ * extras: mirrors.cat.pdx.edu
+ * updates: mirrors.cat.pdx.edu
+Package yum-utils-1.1.31-46.el7_5.noarch already installed and latest version
+Package device-mapper-persistent-data-0.7.3-3.el7.x86_64 already installed and latest version
+Package 7:lvm2-2.02.177-4.el7.x86_64 already installed and latest version
+Nothing to do
++ echo -e '\033[0;31mSETUP REPOSITORY\033[0m'
+SETUP REPOSITORY
++ sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+Loaded plugins: fastestmirror
+adding repo from: https://download.docker.com/linux/centos/docker-ce.repo
+grabbing file https://download.docker.com/linux/centos/docker-ce.repo to /etc/yum.repos.d/docker-ce.repo
+repo saved to /etc/yum.repos.d/docker-ce.repo
++ echo -e '\033[0;31mINSTALL DOCKER\033[0m'
+INSTALL DOCKER
++ sudo yum install -y docker-ce
+Loaded plugins: fastestmirror
+Loading mirror speeds from cached hostfile
+ * base: mirrors.cat.pdx.edu
+ * centos-virt-xen-epel: mirrors.cat.pdx.edu
+ * epel: mirrors.cat.pdx.edu
+ * extras: mirrors.cat.pdx.edu
+ * updates: mirrors.cat.pdx.edu
+Resolving Dependencies
+--> Running transaction check
+---> Package docker-ce.x86_64 0:18.06.1.ce-3.el7 will be installed
+--> Processing Dependency: container-selinux >= 2.9 for package: docker-ce-18.06.1.ce-3.el7.x86_64
+--> Running transaction check
+---> Package container-selinux.noarch 2:2.68-1.el7 will be installed
+--> Finished Dependency Resolution
+
+Dependencies Resolved
+
+============================================================================================================================================================================================
+ Package                                         Arch                                 Version                                          Repository                                      Size
+============================================================================================================================================================================================
+Installing:
+ docker-ce                                       x86_64                               18.06.1.ce-3.el7                                 docker-ce-stable                                41 M
+Installing for dependencies:
+ container-selinux                               noarch                               2:2.68-1.el7                                     extras                                          36 k
+
+Transaction Summary
+============================================================================================================================================================================================
+Install  1 Package (+1 Dependent package)
+
+Total download size: 41 M
+Installed size: 41 M
+Downloading packages:
+(1/2): container-selinux-2.68-1.el7.noarch.rpm                                                                                                                       |  36 kB  00:00:00
+(2/2): docker-ce-18.06.1.ce-3.el7.x86_64.rpm                                                                                                                         |  41 MB  00:00:00
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Total                                                                                                                                                        45 MB/s |  41 MB  00:00:00
+Running transaction check
+Running transaction test
+Transaction test succeeded
+Running transaction
+  Installing : 2:container-selinux-2.68-1.el7.noarch                                                                                                                                    1/2
+setsebool:  SELinux is disabled.
+  Installing : docker-ce-18.06.1.ce-3.el7.x86_64                                                                                                                                        2/2
+  Verifying  : docker-ce-18.06.1.ce-3.el7.x86_64                                                                                                                                        1/2
+  Verifying  : 2:container-selinux-2.68-1.el7.noarch                                                                                                                                    2/2
+
+Installed:
+  docker-ce.x86_64 0:18.06.1.ce-3.el7
+
+Dependency Installed:
+  container-selinux.noarch 2:2.68-1.el7
+
+Complete!
++ echo -e '\033[0;31mSTART DOCKER\033[0m'
+START DOCKER
++ sudo systemctl start docker
++ sudo systemctl enable docker
+Created symlink from /etc/systemd/system/multi-user.target.wants/docker.service to /usr/lib/systemd/system/docker.service.
++ echo -e '\033[0;31mADD CURRENT USER INTO DOCKER GROUP\033[0m'
+ADD CURRENT USER INTO DOCKER GROUP
++ sudo /sbin/usermod -aG docker root
++ echo -e '\033[0;31mINSTALL KUBERNETES\033[0m'
+INSTALL KUBERNETES
++ sudo bash -c 'cat <<EOF > /etc/yum.repos.d/kubernetes.repo
+[kubernetes]
+name=Kubernetes
+baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64
+enabled=1
+gpgcheck=1
+repo_gpgcheck=1
+gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
+exclude=kube*
+EOF'
++ echo -e '\033[0;31mTURN OFF SELINUX\033[0m'
+TURN OFF SELINUX
++ sudo /sbin/setenforce 0
+/sbin/setenforce: SELinux is disabled
++ echo -e '\033[0;31mDISABLE SWAP\033[0m'
+DISABLE SWAP
++ sudo /sbin/swapoff -a
++ echo -e '\033[0;31mSET IP FORWARDING\033[0m'
+SET IP FORWARDING
++ echo -e 1 /proc/sys/net/ipv4/ip_forward
++ echo -e '\033[0;31mSET NETWORK CONFIGURATION\033[0m'
+SET NETWORK CONFIGURATION
++ sudo bash -c 'cat <<EOF > /etc/sysctl.d/k8s.conf
+net.bridge.bridge-nf-call-ip6tables = 1
+net.bridge.bridge-nf-call-iptables = 1
+EOF'
++ sudo sysctl --system
+* Applying /etc/sysctl.d/00-chef-highperf.conf ...
+vm.swappiness = 10
+vm.max_map_count = 262144
+vm.dirty_ratio = 20
+vm.dirty_background_ratio = 30
+vm.dirty_expire_centisecs = 30000
+* Applying /usr/lib/sysctl.d/00-system.conf ...
+net.bridge.bridge-nf-call-ip6tables = 0
+net.bridge.bridge-nf-call-iptables = 0
+net.bridge.bridge-nf-call-arptables = 0
+* Applying /usr/lib/sysctl.d/10-default-yama-scope.conf ...
+kernel.yama.ptrace_scope = 0
+* Applying /usr/lib/sysctl.d/50-default.conf ...
+kernel.sysrq = 16
+kernel.core_uses_pid = 1
+net.ipv4.conf.default.rp_filter = 1
+net.ipv4.conf.all.rp_filter = 1
+net.ipv4.conf.default.accept_source_route = 0
+net.ipv4.conf.all.accept_source_route = 0
+net.ipv4.conf.default.promote_secondaries = 1
+net.ipv4.conf.all.promote_secondaries = 1
+fs.protected_hardlinks = 1
+fs.protected_symlinks = 1
+* Applying /etc/sysctl.d/99-sysctl.conf ...
+* Applying /etc/sysctl.d/k8s.conf ...
+net.bridge.bridge-nf-call-ip6tables = 1
+net.bridge.bridge-nf-call-iptables = 1
+* Applying /etc/sysctl.conf ...
++ echo -e '\033[0;31mINSTALL KUBERNETES\033[0m'
+INSTALL KUBERNETES
++ sudo yum install -y kubelet kubeadm kubectl --disableexcludes=kubernetes
+Loaded plugins: fastestmirror
+Loading mirror speeds from cached hostfile
+ * base: mirrors.cat.pdx.edu
+ * centos-virt-xen-epel: mirrors.cat.pdx.edu
+ * epel: mirrors.cat.pdx.edu
+ * extras: mirrors.cat.pdx.edu
+ * updates: mirrors.cat.pdx.edu
+kubernetes/signature                                                                                                                                                 |  454 B  00:00:00
+Retrieving key from https://packages.cloud.google.com/yum/doc/yum-key.gpg
+Importing GPG key 0xA7317B0F:
+ Userid     : "Google Cloud Packages Automatic Signing Key <gc-team@google.com>"
+ Fingerprint: d0bc 747f d8ca f711 7500 d6fa 3746 c208 a731 7b0f
+ From       : https://packages.cloud.google.com/yum/doc/yum-key.gpg
+Retrieving key from https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
+kubernetes/signature                                                                                                                                                 | 1.4 kB  00:00:05 !!!
+kubernetes/primary                                                                                                                                                   |  37 kB  00:00:00
+kubernetes                                                                                                                                                                          272/272
+Resolving Dependencies
+--> Running transaction check
+---> Package kubeadm.x86_64 0:1.12.2-0 will be installed
+--> Processing Dependency: kubernetes-cni >= 0.6.0 for package: kubeadm-1.12.2-0.x86_64
+--> Processing Dependency: cri-tools >= 1.11.0 for package: kubeadm-1.12.2-0.x86_64
+---> Package kubectl.x86_64 0:1.12.2-0 will be installed
+---> Package kubelet.x86_64 0:1.12.2-0 will be installed
+--> Processing Dependency: socat for package: kubelet-1.12.2-0.x86_64
+--> Processing Dependency: ebtables for package: kubelet-1.12.2-0.x86_64
+--> Running transaction check
+---> Package cri-tools.x86_64 0:1.12.0-0 will be installed
+---> Package ebtables.x86_64 0:2.0.10-16.el7 will be installed
+---> Package kubernetes-cni.x86_64 0:0.6.0-0 will be installed
+---> Package socat.x86_64 0:1.7.3.2-2.el7 will be installed
+--> Finished Dependency Resolution
+
+Dependencies Resolved
+
+============================================================================================================================================================================================
+ Package                                         Arch                                    Version                                          Repository                                   Size
+============================================================================================================================================================================================
+Installing:
+ kubeadm                                         x86_64                                  1.12.2-0                                         kubernetes                                  7.2 M
+ kubectl                                         x86_64                                  1.12.2-0                                         kubernetes                                  7.7 M
+ kubelet                                         x86_64                                  1.12.2-0                                         kubernetes                                   19 M
+Installing for dependencies:
+ cri-tools                                       x86_64                                  1.12.0-0                                         kubernetes                                  4.2 M
+ ebtables                                        x86_64                                  2.0.10-16.el7                                    base                                        123 k
+ kubernetes-cni                                  x86_64                                  0.6.0-0                                          kubernetes                                  8.6 M
+ socat                                           x86_64                                  1.7.3.2-2.el7                                    base                                        290 k
+
+Transaction Summary
+============================================================================================================================================================================================
+Install  3 Packages (+4 Dependent packages)
+
+
