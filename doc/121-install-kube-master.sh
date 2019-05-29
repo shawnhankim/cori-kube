@@ -38,8 +38,8 @@ kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documen
 kubectl get pods --all-namespaces
 
 # If coredns status is not 'Running', unmark the following comments and execute the following commands
-# kubectl -n kube-system get deployment coredns -o yaml | \
-# sed 's/allowPrivilegeEscalation: false/allowPrivilegeEscalation: true/g' | \
-# kubectl apply -f -
+kubectl -n kube-system get deployment coredns -o yaml | \
+sed 's/allowPrivilegeEscalation: false/allowPrivilegeEscalation: true/g' | \
+kubectl apply -f -
 
 
