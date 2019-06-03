@@ -10,7 +10,7 @@ source "./color.sh"
 #
 echo -e ""
 echo -e "${BGreen}+------------------------------------------------------------------------------+${ColorOff}"
-echo -e "${BGreen}|         Install Kube Master & Deploy NGINX on Kube Cluster for Ubuntu        |${ColorOff}"
+echo -e "${BGreen}|     Install Indigo Kube Master & Deploy NGINX on Kube Cluster for Ubuntu     |${ColorOff}"
 echo -e "${BGreen}+------------------------------------------------------------------------------+${ColorOff}"
 
 # 
@@ -30,7 +30,7 @@ echo -e "${UCyan}\n1. Prerequisite prior to Kubernetes Installation ${ColorOff}"
         echo -e "${BPurple}\n* Update package index${ColorOff}"
         sudo apt update
 
-        # Install a few prerequisite packages which let apt use packages over HTTPS
+        # Install packages to allow the use of Docker’s repository
         echo -e "${BPurple}\n* Install packages to allow the use of Docker’s repository${ColorOff}"
         sudo apt install apt-transport-https ca-certificates curl software-properties-common
 
@@ -161,5 +161,5 @@ echo -e "${UCyan}\n4. Deploy NGINX on Kubernetes Cluster \n${ColorOff}"
 #
 echo -e ""
 echo -e "${BGreen}+------------------------------------------------------------------------------+${ColorOff}"
-echo -e "${BGreen}|        Has been completed the Kube installation and NGINX deployment         |${ColorOff}"
+echo -e "${BGreen}|     Has been completed the Indigo Kube installation and NGINX deployment     |${ColorOff}"
 echo -e "${BGreen}+------------------------------------------------------------------------------+${ColorOff}"
