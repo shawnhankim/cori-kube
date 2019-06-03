@@ -10,7 +10,7 @@ source "./color.sh"
 #
 echo -e ""
 echo -e "${BGreen}+------------------------------------------------------------------------------+${ColorOff}"
-echo -e "${BGreen}|                        Uninstall Kube Worker for Ubuntu                      |${ColorOff}"
+echo -e "${BGreen}|                    Uninstall Indigo Kube Worker for Ubuntu                   |${ColorOff}"
 echo -e "${BGreen}+------------------------------------------------------------------------------+${ColorOff}"
 
 # Reset kubeadm
@@ -57,5 +57,5 @@ sudo apt remove -y kubeadm
 #
 echo -e ""
 echo -e "${BGreen}+------------------------------------------------------------------------------+${ColorOff}"
-echo -e "${BGreen}|                Completed Kube Worker Uninstallation for Ubuntu               |${ColorOff}"
+echo -e "${BGreen}|            Completed Indigo Kube Worker Uninstallation for Ubuntu            |${ColorOff}"
 echo -e "${BGreen}+------------------------------------------------------------------------------+${ColorOff}"

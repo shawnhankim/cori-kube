@@ -11,7 +11,7 @@ source "./color.sh"
 #
 echo -e ""
 echo -e "${BGreen}+------------------------------------------------------------------------------+${ColorOff}"
-echo -e "${BGreen}|                         Install Kube Worker for Ubuntu                       |${ColorOff}"
+echo -e "${BGreen}|                    Install Indigo Kube Worker for Ubuntu                     |${ColorOff}"
 echo -e "${BGreen}+------------------------------------------------------------------------------+${ColorOff}"
 
 # 
@@ -50,8 +50,9 @@ echo -e "${UCyan}\n1. Prerequisite prior to Kubernetes Installation ${ColorOff}"
         echo -e "${BPurple}\n* Install Docker CE${ColorOff}"
         sudo apt install docker-ce
 
-        # Enable Docker
-        echo -e "${BPurple}\n* Enable Docker${ColorOff}"
+        # Start and enable Docker
+        echo -e "${BPurple}\n* Start and Enable Docker${ColorOff}"
+        sudo systemctl start  docker
         sudo systemctl enable docker
 
 # 
@@ -60,7 +61,7 @@ echo -e "${UCyan}\n1. Prerequisite prior to Kubernetes Installation ${ColorOff}"
 echo -e "${UCyan}\n2. Install Kubernetes${ColorOff}"
 
     # 2.1 Install kubelet and kubeadm 
-    echo -e "${Cyan}\n2.1 Install kubelet, kubeadm  ${ColorOff}"
+    echo -e "${Cyan}\n2.1 Install kubelet and kubeadm  ${ColorOff}"
     curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
     echo 'deb http://apt.kubernetes.io/ kubernetes-xenial main' | sudo tee /etc/apt/sources.list.d/kubernetes.list
     sudo apt update
@@ -69,9 +70,9 @@ echo -e "${UCyan}\n2. Install Kubernetes${ColorOff}"
     # 2.2 Join worker to master using kubeadm 
     echo -e "${Cyan}\n2.2 Join worker to master using kubeadm ${ColorOff}"
     
-    export KUBEADM_TOKEN="fyvg4r.j523mf3ee7ti1atn"
+    export KUBEADM_TOKEN="tjtopr.2vx8v4ctqe44dlt8"
     export KUBEADM_HOST_IP="10.0.46.28"
-    export KUBEADM_TOKEN_HASH="55dc6b3e68c11a81ca10f6a82857d51b3d0b29a50d2cedb1a3dea258d2a134c3"
+    export KUBEADM_TOKEN_HASH="3d03451f0d7099c893b487bb48b6e0c87ccf250e72c45b0da052a34d2e6efb54"
     sudo kubeadm join ${KUBEADM_HOST_IP}:6443 --token ${KUBEADM_TOKEN} \
                 --discovery-token-ca-cert-hash sha256:${KUBEADM_TOKEN_HASH}
 
@@ -89,5 +90,5 @@ sudo docker run --rm -v `pwd`:/host aquasec/kube-bench:latest install
 #
 echo -e ""
 echo -e "${BGreen}+------------------------------------------------------------------------------+${ColorOff}"
-echo -e "${BGreen}|               Has been completed the Kube worker installation                |${ColorOff}"
+echo -e "${BGreen}|           Has been completed the Indigo Kube worker installation             |${ColorOff}"
 echo -e "${BGreen}+------------------------------------------------------------------------------+${ColorOff}"
