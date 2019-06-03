@@ -3,41 +3,14 @@
 # 
 # Declare Color Constant
 #
-ColorOff='\033[0m'        # Reset color
-
-Black="\033[0;30m"        # Regular Black
-Red="\033[0;31m"          # Regular Red
-Green="\033[0;32m"        # Regular Green
-Yellow="\033[0;33m"       # Regular Yellow
-Blue="\033[0;34m"         # Regular Blue
-Purple="\033[0;35m"       # Regular Purple
-Cyan="\033[0;36m"         # Regular Cyan
-White="\033[0;37m"        # Regular White
-
-BBlack="\033[1;30m"       # Bold Black
-BRed="\033[1;31m"         # Bold Red
-BGreen="\033[1;32m"       # Bold Green
-BYellow="\033[1;33m"      # Bold Yellow
-BBlue="\033[1;34m"        # Bold Blue
-BPurple="\033[1;35m"      # Bold Purple
-BCyan="\033[1;36m"        # Bold Cyan
-BWhite="\033[1;37m"       # Bold White
-
-UBlack="\033[4;30m"       # Underline Black
-URed="\033[4;31m"         # Underline Red
-UGreen="\033[4;32m"       # Underline Green
-UYellow="\033[4;33m"      # Underline Yellow
-UBlue="\033[4;34m"        # Underline Blue
-UPurple="\033[4;35m"      # Underline Purple
-UCyan="\033[4;36m"        # Underline Cyan
-UWhite="\033[4;37m"       # Underline White
+source "./color.sh"
 
 #
-# Print Title
+# Print Start Message
 #
 echo -e ""
 echo -e "${BGreen}+------------------------------------------------------------------------------+${ColorOff}"
-echo -e "${BGreen}|     Install Kubernetes and Deploy NGINX on Kubernetes Cluster for Ubuntu     |${ColorOff}"
+echo -e "${BGreen}|         Install Kube Master & Deploy NGINX on Kube Cluster for Ubuntu        |${ColorOff}"
 echo -e "${BGreen}+------------------------------------------------------------------------------+${ColorOff}"
 
 # 
@@ -53,12 +26,9 @@ echo -e "${UCyan}\n1. Prerequisite prior to Kubernetes Installation ${ColorOff}"
     # 1.2 Install Docker 
     echo -e "${Cyan}\n1.2 Install Docker ${ColorOff}"
 
-        # Remove  older Docker images
-        echo -e "${BPurple}\n* Remove older Docker images${ColorOff}"
-        sudo docker rmi $(sudo docker images -q)       # Remove all of containers
-        sudo docker rm $(sudo docker ps -a -q)         # Remove all of images
-        sudo apt remove docker docker-engine docker.io # Remove Docker
-        sudo apt update                                # Update package index
+        # Update package index
+        echo -e "${BPurple}\n* Update package index${ColorOff}"
+        sudo apt update
 
         # Install a few prerequisite packages which let apt use packages over HTTPS
         echo -e "${BPurple}\n* Install packages to allow the use of Docker’s repository${ColorOff}"
@@ -72,10 +42,6 @@ echo -e "${UCyan}\n1. Prerequisite prior to Kubernetes Installation ${ColorOff}"
         echo -e "${BPurple}\n* Add the stable Docker repository${ColorOff}"
         sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable"
 
-        # Update package index
-        echo -e "${BPurple}\n* Update package index${ColorOff}"
-        sudo apt update
-
         # Make sure you are about to install from the Docker repo instead of the default Ubuntu repo:
         sudo apt-cache policy docker-ce
 
@@ -83,8 +49,9 @@ echo -e "${UCyan}\n1. Prerequisite prior to Kubernetes Installation ${ColorOff}"
         echo -e "${BPurple}\n* Install Docker CE${ColorOff}"
         sudo apt install docker-ce
 
-        # Enable Docker
-        echo -e "${BPurple}\n* Enable Docker${ColorOff}"
+        # Start and enable Docker
+        echo -e "${BPurple}\n* Start and enable Docker${ColorOff}"
+        sudo systemctl start  docker
         sudo systemctl enable docker
 
 # 
@@ -111,7 +78,7 @@ echo -e "${UCyan}\n2. Install Kubernetes${ColorOff}"
     
         # Initialize kubeadm
         echo -e "${BPurple}\n* Initialize kubeadm using private IP address ${ColorOff}"
-        sudo kubeadm init  --pod-network-cidr=192.168.0.0/16 --apiserver-advertise-address=${PRIVATE_IP}
+        sudo kubeadm init  --pod-network-cidr=192.168.0.0/16 --apiserver-advertise-address=${PRIVATE_IP} 
         
             #
             # The example of result after running 'kubeadm init'
@@ -190,9 +157,9 @@ echo -e "${UCyan}\n4. Deploy NGINX on Kubernetes Cluster \n${ColorOff}"
     kubectl get svc
 
 #
-# Print End of Title
+# Print Completion Message
 #
 echo -e ""
 echo -e "${BGreen}+------------------------------------------------------------------------------+${ColorOff}"
-echo -e "${BGreen}|     Has been completed the Kubernetes installation and NGINX deployment      |${ColorOff}"
+echo -e "${BGreen}|        Has been completed the Kube installation and NGINX deployment         |${ColorOff}"
 echo -e "${BGreen}+------------------------------------------------------------------------------+${ColorOff}"
