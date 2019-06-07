@@ -10,7 +10,7 @@ source "./color.sh"
 #
 echo -e ""
 echo -e "${BGreen}+------------------------------------------------------------------------------+${ColorOff}"
-echo -e "${BGreen}|     Install Kube Master & Deploy NGINX on Kube Cluster for Ubuntu            |${ColorOff}"
+echo -e "${BGreen}|        Install Kube Master & Deploy NGINX on Kube Cluster for Ubuntu         |${ColorOff}"
 echo -e "${BGreen}+------------------------------------------------------------------------------+${ColorOff}"
 
 # 
