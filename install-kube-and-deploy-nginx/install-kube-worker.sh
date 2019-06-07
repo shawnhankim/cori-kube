@@ -11,7 +11,7 @@ source "./color.sh"
 #
 echo -e ""
 echo -e "${BGreen}+------------------------------------------------------------------------------+${ColorOff}"
-echo -e "${BGreen}|                    Install Indigo Kube Worker for Ubuntu                     |${ColorOff}"
+echo -e "${BGreen}|                        Install Kube Worker for Ubuntu                        |${ColorOff}"
 echo -e "${BGreen}+------------------------------------------------------------------------------+${ColorOff}"
 
 # 
@@ -90,5 +90,5 @@ sudo docker run --rm -v `pwd`:/host aquasec/kube-bench:latest install
 #
 echo -e ""
 echo -e "${BGreen}+------------------------------------------------------------------------------+${ColorOff}"
-echo -e "${BGreen}|           Has been completed the Indigo Kube worker installation             |${ColorOff}"
+echo -e "${BGreen}|                Has been completed the Kube worker installation               |${ColorOff}"
 echo -e "${BGreen}+------------------------------------------------------------------------------+${ColorOff}"
