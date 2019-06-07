@@ -10,7 +10,7 @@ source "./color.sh"
 #
 echo -e ""
 echo -e "${BGreen}+------------------------------------------------------------------------------+${ColorOff}"
-echo -e "${BGreen}|       Uninstall Indigo Kube Master & Delete NGINX Deployment for Ubuntu      |${ColorOff}"
+echo -e "${BGreen}|          Uninstall Kube Master & Delete NGINX Deployment for Ubuntu          |${ColorOff}"
 echo -e "${BGreen}+------------------------------------------------------------------------------+${ColorOff}"
 
 # Print commands 
@@ -66,5 +66,5 @@ sudo apt remove -y kubeadm
 # Print Completion Message
 #
 echo -e "${BGreen}+------------------------------------------------------------------------------+${ColorOff}"
-echo -e "${BGreen}|    Completed Indigo Kube Master Uninstallation & Deleting NGINX Deployment   |${ColorOff}"
+echo -e "${BGreen}|        Completed Kube Master Uninstallation & Deleting NGINX Deployment      |${ColorOff}"
 echo -e "${BGreen}+------------------------------------------------------------------------------+${ColorOff}"
