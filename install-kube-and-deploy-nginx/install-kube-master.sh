@@ -60,7 +60,7 @@ echo -e "${UCyan}\n1. Prerequisite prior to Kubernetes Installation ${ColorOff}"
 echo -e "${UCyan}\n2. Install Kubernetes${ColorOff}"
 
     # 2.1 Install kubelet, kubeadm, and kubectl 
-    echo -e "${Cyan}\n2.1 Install kubelet, kubeadm, and kubelet ${ColorOff}"
+    echo -e "${Cyan}\n2.1 Install kubelet, kubeadm, and kubectl ${ColorOff}"
     curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
     echo 'deb http://apt.kubernetes.io/ kubernetes-xenial main' | sudo tee /etc/apt/sources.list.d/kubernetes.list
     sudo apt update
